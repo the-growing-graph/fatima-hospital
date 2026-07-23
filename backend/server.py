@@ -806,6 +806,21 @@ async def startup_db_client():
     await db.users.create_index("email", unique=True)
     await db.login_attempts.create_index("identifier")
 
+    # Force update doctor details as requested
+    await db.doctors.update_one(
+        {"name": {"$regex": "Shariq", "$options": "i"}},
+        {"$set": {"experience_years": 5, "availability": ""}}
+    )
+    await db.doctors.update_one(
+        {"name": {"$regex": "Mukesh", "$options": "i"}},
+        {"$set": {"availability": ""}}
+    )
+    await db.doctors.update_one(
+        {"name": {"$regex": "Ajay", "$options": "i"}},
+        {"$set": {"experience_years": 25, "availability": ""}}
+    )
+    logger.info("Doctor details forced update completed on startup")
+
     # Initialize object storage
     try:
         pass  # storage disabled
