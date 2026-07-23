@@ -1,0 +1,107 @@
+{
+  "theme": "light",
+  "archetype": "Organic & Earthy",
+  "brand": {
+    "name": "Fatima Multispeciality Hospital",
+    "tagline": "Aapki Sehat. Aapka Parivaar. Hamara Vaada.",
+    "positioning": "Premium Healthcare, Sanctuary of Healing, 20+ Years Excellence"
+  },
+  "colors": {
+    "primary": "#0D8B6F",
+    "accent": "#B88A28",
+    "background": "#F8FAFB",
+    "surface": "#FFFFFF",
+    "text_primary": "#1F2937",
+    "text_secondary": "#4B5563",
+    "emergency": "#E63946",
+    "border": "#E5E7EB",
+    "focus_ring": "#0D8B6F"
+  },
+  "typography": {
+    "headings": {
+      "family": "Poppins",
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-[#1F2937]",
+      "h2": "text-3xl sm:text-4xl font-medium tracking-tight text-[#1F2937]",
+      "h3": "text-2xl sm:text-3xl font-medium text-[#1F2937]",
+      "h4": "text-xl font-medium text-[#1F2937]",
+      "label_overline": "text-xs font-semibold uppercase tracking-[0.2em] text-[#0D8B6F]"
+    },
+    "body": {
+      "family": "Inter",
+      "p": "text-base leading-relaxed text-[#4B5563]",
+      "small": "text-sm text-[#6B7280]"
+    }
+  },
+  "spacing_and_layout": {
+    "section_padding": "py-20 md:py-32",
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "card_padding": "p-8",
+    "border_radius": "rounded-2xl sm:rounded-3xl",
+    "grid_strategy": "bento_grid_for_features_and_departments"
+  },
+  "surfaces_and_shadows": {
+    "header": "backdrop-blur-xl bg-white/80 border-b border-gray-100",
+    "card": "bg-white border border-gray-50 shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+    "card_hover": "hover:-translate-y-1 hover:shadow-[0_20px_40px_rgb(13,139,111,0.08)] transition-all duration-300",
+    "button_primary": "bg-[#0D8B6F] text-white hover:bg-[#0A6B56] shadow-md rounded-full px-8 py-3 transition-colors",
+    "button_accent": "bg-[#B88A28] text-white hover:bg-[#9A7320] shadow-md rounded-full px-8 py-3 transition-colors",
+    "button_emergency": "bg-[#E63946] text-white hover:bg-[#C1121F] shadow-lg shadow-red-500/30 rounded-full px-8 py-3 animate-pulse"
+  },
+  "components": {
+    "navigation": "Sticky header (Crystal Glassmorphism) with Logo, Links, and 'Book Appointment' Primary Button.",
+    "floating_actions": "Fixed bottom-right WhatsApp icon (Green), fixed bottom-left Emergency Contact (Red #E63946).",
+    "forms": "Use Shadcn customized components. Input fields with rounded-xl, #0D8B6F focus rings, light grey borders.",
+    "marquee": "Slow, organic editorial ribbon displaying '24x7 Emergency • Advanced NICU • 14,000+ Deliveries • In-House Pharmacy' using Poppins text-sm uppercase with #0D8B6F text on #F8FAFB background.",
+    "hero": "Split layout or soft-rounded massive image container. Overlay opacity max 30% if text is over image. High-end sanctuary feel.",
+    "admin_panel": "Dense dashboard using #F8FAFB bg, white cards, strictly geometric (Inter body) for data legibility. Shadcn tables."
+  },
+  "media": {
+    "logo": "https://customer-assets.emergentagent.com/job_fatima-health-1/artifacts/1vxh08as_ChatGPT%20Image%20Jun%2022%2C%202026%2C%2001_31_07%20PM.png",
+    "images": [
+      {
+        "category": "hero_exterior",
+        "url": "https://images.unsplash.com/photo-1626315869436-d6781ba69d6e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nJTIwZXh0ZXJpb3J8ZW58MHx8fHwxNzgyMjE2MDc1fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Modern hospital building exterior."
+      },
+      {
+        "category": "reception_interior",
+        "url": "https://images.unsplash.com/photo-1759038085950-1234ca8f5fed?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBob3NwaXRhbCUyMHJlY2VwdGlvbnxlbnwwfHx8fDE3ODIyODQ2Mjh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Luxury hospital reception/lobby."
+      },
+      {
+        "category": "maternity",
+        "url": "https://images.pexels.com/photos/4041804/pexels-photo-4041804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Mother holding newborn."
+      },
+      {
+        "category": "surgery_infrastructure",
+        "url": "https://images.pexels.com/photos/24193881/pexels-photo-24193881.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Modern modular operation theatre."
+      },
+      {
+        "category": "hospital_room",
+        "url": "https://images.pexels.com/photos/12081340/pexels-photo-12081340.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Premium hospital room with advanced bed."
+      },
+      {
+        "category": "doctor_specialist",
+        "url": "https://images.pexels.com/photos/5738735/pexels-photo-5738735.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Confident female doctor in hospital."
+      }
+    ],
+    "icons": "lucide-react"
+  },
+  "testing_and_accessibility": {
+    "data_testid": "MANDATORY for all interactive and key informational elements (buttons, links, form inputs, menus, CTAs). Format: kebab-case, role-based.",
+    "accessibility": "Ensure text contrast meets APCA/WCAG AA standards. Use focus rings on interactive elements. Alt attributes for all images."
+  },
+  "instructions_to_main_agent": [
+    "Generate pages for: Home, About, Departments, Maternity, Facilities, Doctors, Gallery, Blog, Contact.",
+    "Include a secure Admin Panel with login, appointment management, doctor lists, blog management, and lead tracking.",
+    "Implement an Online Appointment System with lead capture.",
+    "Ensure Floating WhatsApp and Emergency Contact triggers are present on user-facing pages.",
+    "Use pure HTML + Tailwind for marketing/home page layouts. Use Shadcn components for forms, modals, inputs, and admin panel, highly customized to match the brand colors and border radii.",
+    "Integrate an interactive Google Map iframe in the Contact page.",
+    "Apply 'data-testid' to EVERY button, link, and form input."
+  ]
+}
