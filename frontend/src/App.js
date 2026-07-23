@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useRef } from "r
 import { BrowserRouter, Routes, Route, Link, useNavigate, useParams, useSearchParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import AestheticPage from "./pages/AestheticPage";
+import AestheticServicePage from "./pages/AestheticServicePage";
 import { 
   Phone, 
   Calendar, 
@@ -2773,6 +2774,7 @@ function App() {
               <Route path="/blog/:id_or_slug" element={<BlogDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/aesthetic" element={<AestheticPage />} />
+              <Route path="/aesthetic/:categoryId" element={<AestheticServicePage />} />
               <Route path="/staff-portal" element={<AdminPage />} />
             </Routes>
           </main>
