@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate, useParams, useSearchParams, useLocation } from "react-router-dom";
 import axios from "axios";
+import AestheticPage from "./pages/AestheticPage";
 import { 
   Phone, 
   Calendar, 
@@ -322,6 +323,7 @@ function Header() {
                 <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-2 flex flex-col">
                   <Link to="/departments" data-testid={NAVIGATION.departmentsLink} className="px-4 py-3 rounded-xl text-gray-700 hover:bg-[#0D8B6F]/5 hover:text-[#0D8B6F] transition-colors">Departments</Link>
                   <Link to="/maternity" data-testid={NAVIGATION.maternityLink} className="px-4 py-3 rounded-xl text-gray-700 hover:bg-[#0D8B6F]/5 hover:text-[#0D8B6F] transition-colors">Maternity Excellence</Link>
+                  <Link to="/aesthetic" className="px-4 py-3 rounded-xl text-gray-700 hover:bg-[#0D8B6F]/5 hover:text-[#0D8B6F] transition-colors">Aesthetic & Skin Care</Link>
                   <Link to="/doctors" data-testid={NAVIGATION.doctorsLink} className="px-4 py-3 rounded-xl text-gray-700 hover:bg-[#0D8B6F]/5 hover:text-[#0D8B6F] transition-colors">Our Doctors</Link>
                   <Link to="/blog" data-testid={NAVIGATION.blogLink} className="px-4 py-3 rounded-xl text-gray-700 hover:bg-[#0D8B6F]/5 hover:text-[#0D8B6F] transition-colors">Health Blog</Link>
                 </div>
@@ -362,6 +364,7 @@ function Header() {
               <Link to="/about" data-testid={NAVIGATION.aboutLink} onClick={() => setMobileMenuOpen(false)} className="hover:text-[#0D8B6F] py-2 border-b border-gray-50">About Us</Link>
               <Link to="/departments" data-testid={NAVIGATION.departmentsLink} onClick={() => setMobileMenuOpen(false)} className="hover:text-[#0D8B6F] py-2 border-b border-gray-50">Departments</Link>
               <Link to="/maternity" data-testid={NAVIGATION.maternityLink} onClick={() => setMobileMenuOpen(false)} className="hover:text-[#0D8B6F] py-2 border-b border-gray-50">Maternity Excellence</Link>
+              <Link to="/aesthetic" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#0D8B6F] py-2 border-b border-gray-50">Aesthetic & Skin Care</Link>
               <Link to="/facilities" data-testid={NAVIGATION.facilitiesLink} onClick={() => setMobileMenuOpen(false)} className="hover:text-[#0D8B6F] py-2 border-b border-gray-50">Infrastructure & Facilities</Link>
               <Link to="/doctors" data-testid={NAVIGATION.doctorsLink} onClick={() => setMobileMenuOpen(false)} className="hover:text-[#0D8B6F] py-2 border-b border-gray-50">Our Doctors</Link>
               <Link to="/gallery" data-testid={NAVIGATION.galleryLink} onClick={() => setMobileMenuOpen(false)} className="hover:text-[#0D8B6F] py-2 border-b border-gray-50">Gallery</Link>
@@ -1167,16 +1170,18 @@ function DoctorsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {doctors.map((doc) => (
             <div key={doc.id || doc._id} className="bg-white rounded-2xl shadow-sm border border-gray-50 overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-300">
-              <img src={doc.photo_url} alt={doc.name} className="w-full h-72 object-cover object-top" />
+              <img src={doc.photo_url} alt={doc.name} className="w-full h-72 object-cover object-center" />
               <div className="p-6 text-left flex-grow flex flex-col justify-between">
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-1 font-serif">{doc.name}</h3>
                   <p className="text-xs text-[#B88A28] font-bold uppercase tracking-wider mb-3">{doc.specialization}</p>
                   <div className="text-xs text-gray-500 mb-2 font-medium">{doc.qualification}</div>
                   <div className="text-xs text-gray-600 mb-4">Experience: <strong>{doc.experience_years} Years</strong></div>
-                  <div className="text-xs text-gray-600 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
-                    🕒 Availability: <strong>{doc.availability}</strong>
-                  </div>
+                  {doc.availability && (
+                    <div className="text-xs text-gray-600 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                      🕒 Availability: <strong>{doc.availability}</strong>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-6 pt-4 border-t border-gray-100">
                   <Link 
@@ -2708,6 +2713,16 @@ function AdminPage() {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 // ----------------------------------------------------------------------
 // ROUTER & APP COMPONENT
 // ----------------------------------------------------------------------
@@ -2716,6 +2731,7 @@ function App() {
     <AuthProvider>
       <div className="flex flex-col min-h-screen font-sans bg-[#F8FAFB]">
         <BrowserRouter>
+          <ScrollToTop />
           <Header />
           <main className="flex-grow">
             <Routes>
@@ -2729,6 +2745,7 @@ function App() {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:id_or_slug" element={<BlogDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/aesthetic" element={<AestheticPage />} />
               <Route path="/staff-portal" element={<AdminPage />} />
             </Routes>
           </main>
