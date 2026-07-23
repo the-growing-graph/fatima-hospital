@@ -279,7 +279,7 @@ function CategoryCard({ cat, idx, isOpen, onToggle }) {
         <div className="hidden sm:block flex-shrink-0 w-24 h-14 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 flex items-center justify-center">
           <img
             src="/logo.png"
-            alt="Fatima Hospital Logo"
+            alt="Fatima Hospital Logo"  
             className="w-full h-full object-contain p-1.5 transition-transform duration-500 group-hover:scale-105"
           />
         </div>
