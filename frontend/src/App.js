@@ -1136,24 +1136,55 @@ function FacilitiesPage() {
 }
 
 // 6. DOCTORS PAGE
+const STATIC_DOCTORS = [
+  {
+    id: "dr-rizwan",
+    name: "Dr. Rizwan Uz Zaman Naqishbandi",
+    qualification: "M.B.B.S , D.C.H ,MRCPCH",
+    specialization: "PGPN-PRO , ONTOP",
+    experience_years: 25,
+    photo_url: "/doctors/dr_rizwan.jpg",
+    availability: "1:00PM - 5:00 PM"
+  },
+  {
+    id: "dr-shariq",
+    name: "Dr. Shariq Ahmad",
+    qualification: "MBBS , PGDCC , FICC , FIFM",
+    specialization: "Physician , High Blood Pressure , Disorders",
+    experience_years: 5,
+    photo_url: "/doctors/dr_shariq.jpg",
+    availability: ""
+  },
+  {
+    id: "dr-mukesh",
+    name: "Dr. Mukesh Carpenter",
+    qualification: "MBBS",
+    specialization: "DNB SURGERY , FIAGES , FALS",
+    experience_years: 5,
+    photo_url: "/doctors/dr_mukesh.jpg",
+    availability: ""
+  },
+  {
+    id: "dr-ajay",
+    name: "Dr. Ajay Kapoor",
+    qualification: "MBBS.DTCD.DA",
+    specialization: "Consultant Anaesthetist and Senior Intensivist",
+    experience_years: 25,
+    photo_url: "/doctors/dr_ajay.jpg",
+    availability: ""
+  },
+  {
+    id: "dr-nahid",
+    name: "Dr. Nahid Fatima",
+    qualification: "MBBS",
+    specialization: "Medical Practice",
+    experience_years: 25,
+    photo_url: "/doctors/dr_nahid.jpg",
+    availability: "9:00 AM - 5:00 PM"
+  }
+];
+
 function DoctorsPage() {
-  const [doctors, setDoctors] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const { data } = await axios.get(`${API_URL}/doctors`);
-        setDoctors(data);
-      } catch (err) {
-        console.error("Failed to fetch doctors:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchDoctors();
-  }, []);
-
   return (
     <div className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-16">
@@ -1164,38 +1195,34 @@ function DoctorsPage() {
         </p>
       </div>
 
-      {loading ? (
-        <div className="text-center py-20 text-sm text-gray-500">Loading specialist registry...</div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {doctors.map((doc) => (
-            <div key={doc.id || doc._id} className="bg-white rounded-2xl shadow-sm border border-gray-50 overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-300">
-              <img src={doc.photo_url} alt={doc.name} className="w-full h-72 object-cover object-center" />
-              <div className="p-6 text-left flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1 font-serif">{doc.name}</h3>
-                  <p className="text-xs text-[#B88A28] font-bold uppercase tracking-wider mb-3">{doc.specialization}</p>
-                  <div className="text-xs text-gray-500 mb-2 font-medium">{doc.qualification}</div>
-                  <div className="text-xs text-gray-600 mb-4">Experience: <strong>{doc.experience_years} Years</strong></div>
-                  {doc.availability && (
-                    <div className="text-xs text-gray-600 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
-                      🕒 Availability: <strong>{doc.availability}</strong>
-                    </div>
-                  )}
-                </div>
-                <div className="mt-6 pt-4 border-t border-gray-100">
-                  <Link 
-                    to={`/contact?action=book&doctor=${doc.id || doc._id}`} 
-                    className="block text-center bg-[#0D8B6F] hover:bg-[#0A6B56] text-white py-2.5 rounded-full font-bold text-xs uppercase shadow-sm transition-colors"
-                  >
-                    Schedule Appointment
-                  </Link>
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {STATIC_DOCTORS.map((doc) => (
+          <div key={doc.id} className="bg-white rounded-2xl shadow-sm border border-gray-50 overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-300">
+            <img src={doc.photo_url} alt={doc.name} className="w-full h-72 object-cover object-center" />
+            <div className="p-6 text-left flex-grow flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-1 font-serif">{doc.name}</h3>
+                <p className="text-xs text-[#B88A28] font-bold uppercase tracking-wider mb-3">{doc.specialization}</p>
+                <div className="text-xs text-gray-500 mb-2 font-medium">{doc.qualification}</div>
+                <div className="text-xs text-gray-600 mb-4">Experience: <strong>{doc.experience_years} Years</strong></div>
+                {doc.availability && (
+                  <div className="text-xs text-gray-600 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                    🕒 Availability: <strong>{doc.availability}</strong>
+                  </div>
+                )}
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-100">
+                <Link 
+                  to={`/contact?action=book&doctor=${doc.id}`} 
+                  className="block text-center bg-[#0D8B6F] hover:bg-[#0A6B56] text-white py-2.5 rounded-full font-bold text-xs uppercase shadow-sm transition-colors"
+                >
+                  Schedule Appointment
+                </Link>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
