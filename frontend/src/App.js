@@ -1458,6 +1458,7 @@ function ContactPage() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactMsg, setContactMessage] = useState("");
   const [contactSuccess, setContactSuccess] = useState(false);
+  const [contactLoading, setContactLoading] = useState(false);
 
   // Appointment Booking States
   const [bookName, setBookName] = useState("");
@@ -1468,6 +1469,7 @@ function ContactPage() {
   const [bookDate, setBookDate] = useState("");
   const [bookMsg, setBookMessage] = useState("");
   const [bookSuccess, setBookSuccess] = useState(false);
+  const [bookLoading, setBookLoading] = useState(false);
 
   // Doctors database for the select box
   const [doctorsList, setDoctorsList] = useState([]);
@@ -1490,21 +1492,26 @@ function ContactPage() {
       toast.error("Please fill in all contact lead fields.");
       return;
     }
+    setContactLoading(true);
     try {
       await axios.post(`${API_URL}/enquiries`, {
         name: contactName,
         phone: contactPhone,
         email: contactEmail,
+        subject: "General Enquiry",
         message: contactMsg
       });
       setContactSuccess(true);
-      toast.success("Contact Enquiry Submitted! Our desk will call you back.");
+      toast.success("Enquiry submitted! Our team will call you back shortly.");
       setContactName("");
       setContactPhone("");
       setContactEmail("");
       setContactMessage("");
     } catch (err) {
-      toast.error("Submission failed. Please try again.");
+      const msg = err.response?.data?.detail || "Submission failed. Please try again.";
+      toast.error(msg);
+    } finally {
+      setContactLoading(false);
     }
   };
 
@@ -1514,6 +1521,7 @@ function ContactPage() {
       toast.error("Please fill in all core appointment fields.");
       return;
     }
+    setBookLoading(true);
     try {
       await axios.post(`${API_URL}/appointments`, {
         name: bookName,
@@ -1525,14 +1533,18 @@ function ContactPage() {
         message: bookMsg
       });
       setBookSuccess(true);
-      toast.success("Appointment Requested Successfully!");
+      toast.success("Appointment requested successfully! We will confirm shortly.");
       setBookName("");
       setBookPhone("");
       setBookEmail("");
       setBookDate("");
+      setBookDept("");
       setBookMessage("");
     } catch (err) {
-      toast.error("Appointment booking failed. Please try again.");
+      const msg = err.response?.data?.detail || "Appointment booking failed. Please try again.";
+      toast.error(msg);
+    } finally {
+      setBookLoading(false);
     }
   };
 
@@ -1690,9 +1702,18 @@ function ContactPage() {
               <button 
                 type="submit" 
                 data-testid={CONTACT_PAGE.submitButton}
-                className="w-full bg-[#0D8B6F] hover:bg-[#0A6B56] text-white py-3.5 rounded-full font-bold text-sm tracking-wider uppercase shadow-md"
+                disabled={contactLoading}
+                className="w-full bg-[#0D8B6F] hover:bg-[#0A6B56] disabled:opacity-60 disabled:cursor-not-allowed text-white py-3.5 rounded-full font-bold text-sm tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all"
               >
-                Submit General Enquiry
+                {contactLoading ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </>
+                ) : "Submit General Enquiry"}
               </button>
             </form>
           ) : (
@@ -1803,9 +1824,18 @@ function ContactPage() {
               <button 
                 type="submit" 
                 data-testid={APPOINTMENT_FORM.submitButton}
-                className="w-full bg-[#B88A28] hover:bg-[#9A7320] text-white py-3.5 rounded-full font-bold text-sm tracking-wider uppercase shadow-md"
+                disabled={bookLoading}
+                className="w-full bg-[#B88A28] hover:bg-[#9A7320] disabled:opacity-60 disabled:cursor-not-allowed text-white py-3.5 rounded-full font-bold text-sm tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all"
               >
-                Schedule Priority Appointment
+                {bookLoading ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Booking...
+                  </>
+                ) : "Schedule Priority Appointment"}
               </button>
             </form>
           )}
@@ -1824,6 +1854,7 @@ function AdminPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
 
   // Tab switcher
   const [activeTab, setActiveTab] = useState("appointments");
@@ -1908,10 +1939,13 @@ function AdminPage() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setLoginError("");
+    setLoginLoading(true);
     try {
       await login(email, password);
     } catch (err) {
       setLoginError(err.message || "Failed to authenticate.");
+    } finally {
+      setLoginLoading(false);
     }
   };
 
@@ -2192,9 +2226,18 @@ function AdminPage() {
             <button 
               type="submit" 
               data-testid={AUTH.loginSubmitButton}
-              className="w-full bg-[#0D8B6F] hover:bg-[#0A6B56] text-white py-3 rounded-full font-bold text-sm tracking-wider uppercase shadow-md"
+              disabled={loginLoading}
+              className="w-full bg-[#0D8B6F] hover:bg-[#0A6B56] disabled:opacity-60 disabled:cursor-not-allowed text-white py-3 rounded-full font-bold text-sm tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all"
             >
-              Sign In to Staff Panel
+              {loginLoading ? (
+                <>
+                  <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Authenticating...
+                </>
+              ) : "Sign In to Staff Panel"}
             </button>
           </form>
         </div>
