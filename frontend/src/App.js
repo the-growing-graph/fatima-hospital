@@ -43,7 +43,10 @@ import {
   FLOATING_ACTIONS 
 } from "@/constants/testIds";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://fatima-health-1.preview.emergentagent.com";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 
+  (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:8000" 
+    : window.location.origin);
 const API_URL = `${BACKEND_URL}/api`;
 
 // Axios default credentials configuration
